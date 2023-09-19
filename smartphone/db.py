@@ -36,6 +36,10 @@ class UserDB:
         q = Query()
         return self.cart.search(q.chat_id == chat_id)
 
+    def clear_items(self, chat_id):
+        q = Query()
+        return self.cart.remove(q.chat_id == chat_id)
+
 
 class SmartphoneDB:
     def __init__(self, file_name: str) -> None:

@@ -22,6 +22,17 @@ def main(token):
     dispatcher.add_handler(CallbackQueryHandler(pattern='contact:number', callback=handlers.phone_number))
     dispatcher.add_handler(CallbackQueryHandler(pattern='contact:email', callback=handlers.email))
 
+    # brend callback query handlers
+    dispatcher.add_handler(CallbackQueryHandler(pattern='brend:', callback=handlers.brend))
+    dispatcher.add_handler(CallbackQueryHandler(pattern='phone:', callback=handlers.phone))
+    dispatcher.add_handler(CallbackQueryHandler(pattern='cart:', callback=handlers.add_cart))
+
+    # close
+    dispatcher.add_handler(CallbackQueryHandler(pattern='close', callback=handlers.close))
+
+    # clear cart
+    dispatcher.add_handler(CallbackQueryHandler(pattern='clear', callback=handlers.clear))
+
     # start polling
     updater.start_polling()
     updater.idle()
