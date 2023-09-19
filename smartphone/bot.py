@@ -13,7 +13,10 @@ def main(token):
     dispatcher.add_handler(CommandHandler('start', handlers.start))
 
     # message handlers
-    # dispatcher.add_handler(MessageHandler(Filters.))
+    dispatcher.add_handler(MessageHandler(Filters.text('🛍 Shop'), handlers.shop))
+    dispatcher.add_handler(MessageHandler(Filters.text('🛒 Cart'), handlers.cart))
+    dispatcher.add_handler(MessageHandler(Filters.text('📞 Contact'), handlers.contact))
+    dispatcher.add_handler(MessageHandler(Filters.text('📝 About'), handlers.about))
 
     # start polling
     updater.start_polling()
