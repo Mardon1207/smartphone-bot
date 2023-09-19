@@ -60,13 +60,36 @@ def cart(update: Update, context: CallbackContext) -> None:
     
 
 def contact(update: Update, context: CallbackContext) -> None:
+    inline_keyboards = [
+        [
+            InlineKeyboardButton(text='📞 Phone number', callback_data='contact:number'),
+            InlineKeyboardButton(text='📧 Email', callback_data='contact:email')
+        ],
+        [
+            InlineKeyboardButton(text='📍 Location', callback_data='contact:location'),
+            InlineKeyboardButton(text='📌 Address', callback_data='contact:address')
+        ],
+    ]
     update.message.reply_html(
-        text="contact"
+        text="Biz bilan bog'lanish",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=inline_keyboards)
     )
     
 
 def about(update: Update, context: CallbackContext) -> None:
     update.message.reply_html(
         text="about"
+    )
+    
+
+def phone_number(update: Update, context: CallbackContext) -> None:
+    update.callback_query.message.reply_html(
+        text="Bizning telefon raqamlarimiz:\n\n📞 +998(88)123-12-12\n📞 +998(91)123-12-12"
+    )
+    
+
+def email(update: Update, context: CallbackContext) -> None:
+    update.callback_query.message.reply_html(
+        text="Bizning elektron pochtamiz:\n\n📧 smartphonebot@gmail.com"
     )
 
