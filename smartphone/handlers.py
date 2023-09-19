@@ -1,4 +1,4 @@
-from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackContext
 from .db import UserDB, SmartphoneDB
 
@@ -31,25 +31,25 @@ def start(update: Update, context: CallbackContext) -> None:
 def shop(update: Update, context: CallbackContext) -> None:
     brends = smartphonedb.brends()
 
-    # input: [1, 2, 3, 4, 5, 6, 7]
+    # input: [1, 2, 3, 4, 5, 6, 7] -> ['iphone', 'samsung']
     # output: [[1, 2, 3], [4, 5, 6], [7]]
 
-    keyboards = []
+    inline_keyboards = []
     row = []
 
     for brend in brends:
-        row.append(KeyboardButton(brend))
+        row.append(InlineKeyboardButton(text=brend, callback_data=f'brend:{brend}'))
         
         if len(row) == 3:
-            keyboards.append(row)
+            inline_keyboards.append(row)
             row = []
 
     if row:
-        keyboards.append(row)
+        inline_keyboards.append(row)
 
     update.message.reply_html(
-        text="shop",
-        reply_markup=ReplyKeyboardMarkup(keyboard=keyboards, resize_keyboard=True)
+        text="Choose a phone",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=inline_keyboards)
     )
     
 
