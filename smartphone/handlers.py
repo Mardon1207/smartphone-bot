@@ -29,8 +29,27 @@ def start(update: Update, context: CallbackContext) -> None:
     
 
 def shop(update: Update, context: CallbackContext) -> None:
+    brends = smartphonedb.brends()
+
+    # input: [1, 2, 3, 4, 5, 6, 7]
+    # output: [[1, 2, 3], [4, 5, 6], [7]]
+
+    keyboards = []
+    row = []
+
+    for brend in brends:
+        row.append(KeyboardButton(brend))
+        
+        if len(row) == 3:
+            keyboards.append(row)
+            row = []
+
+    if row:
+        keyboards.append(row)
+
     update.message.reply_html(
-        text="shop"
+        text="shop",
+        reply_markup=ReplyKeyboardMarkup(keyboard=keyboards, resize_keyboard=True)
     )
     
 
